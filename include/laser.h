@@ -5,3 +5,7 @@
 void setupLaser(int laserPin);
 
 void blinkLaser(int laserPin);
+
+void shootBit(int laserPin, int bit);
+
+void laserSequence(int laserPin);
