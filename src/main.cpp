@@ -3,6 +3,10 @@
 #include <BLEUtils.h>
 #include <BLEServer.h>
 
+#include <laser.h>
+
+#define LASER_PIN 12
+
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
 #define SERVICE_UUID "6d1cacdf-7aa8-4adf-9d7a-c76c9967ad8c"
@@ -45,6 +49,9 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Starting BLE Setup...");
 
+  // Laser setup
+  setupLaser(LASER_PIN);
+
   // BLE setup:
   BLEDevice::init("DM_AJ");
   BLEServer *pServer = BLEDevice::createServer();
@@ -64,4 +71,5 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  blinkLaser(LASER_PIN);
 }
