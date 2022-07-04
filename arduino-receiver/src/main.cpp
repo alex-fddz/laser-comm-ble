@@ -15,6 +15,7 @@
 // include the library code:
 #include <SerialLCD.h>
 #include <SoftwareSerial.h> //this is a must
+#include <laser.h>
 
 #define LASER 13
 
@@ -29,6 +30,9 @@ void setup() {
   slcd.print("DON'T");
   slcd.setCursor(0, 1);
   slcd.print("PANIC !");
+
+  setupLaser(LASER);
+  turnLaserOn(LASER);
 }
 
 void loop() {
