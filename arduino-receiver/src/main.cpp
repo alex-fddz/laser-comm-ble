@@ -15,9 +15,16 @@
 // include the library code:
 #include <SerialLCD.h>
 #include <SoftwareSerial.h> //this is a must
+
 #include <laser.h>
 
+#include <Servo.h>
+
 #define LASER 13
+
+#define MOTOR 9
+
+Servo servo;
 
 // initialize the library
 SerialLCD slcd(11,12);//this is a must, assign soft serial pins
@@ -33,9 +40,17 @@ void setup() {
 
   setupLaser(LASER);
   turnLaserOn(LASER);
+
+  servo.attach(MOTOR);
+  servo.write(0);
 }
 
 void loop() {
+  servo.write(45);
+  delay(1000);
+  servo.write(90);
+  delay(1000);
+
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
   // slcd.setCursor(0, 1);
