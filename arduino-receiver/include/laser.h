@@ -13,3 +13,5 @@ void laserSequence(int laserPin);
 void turnLaserOn(int laserPin);
 
 void turnLaserOff(int laserPin);
+
+int isReceiverOn(int receiverPin);

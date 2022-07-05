@@ -6,6 +6,8 @@
 #define LO 10  // 0-bit
 #define HI 255 // 1-bit
 
+#define RECEIVER_ON_LVL 20 // 0 - 1023
+
 int shoot_delay = 1000 / TX_SPEED;
 
 void setupLaser(int laserPin){
@@ -47,4 +49,14 @@ void turnLaserOn(int laserPin) {
 
 void turnLaserOff(int laserPin) {
   digitalWrite(laserPin, LOW);
+}
+
+int isReceiverOn(int receiverPin) {
+  int value = analogRead(receiverPin);
+  Serial.println(value);
+  if (value <= RECEIVER_ON_LVL) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
