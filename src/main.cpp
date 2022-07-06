@@ -4,6 +4,7 @@
 #include <BLEServer.h>
 
 #include <laser.h>
+#include <morse.h>
 
 #define LASER_PIN 12
 
@@ -39,6 +40,10 @@ class MyCallbacks : public BLECharacteristicCallbacks
       Serial.println(message);
 
       // doSomething(message);
+      sendMorseCode(LASER_PIN, message);
+      
+      Serial.print("OK!");
+      
     }
   }
 };
@@ -71,6 +76,4 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  laserSequence(LASER_PIN);
-  delay(2000);
 }

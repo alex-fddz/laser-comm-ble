@@ -63,3 +63,12 @@ void flashDashDot(int outPin, const char * morseCode) {
     i++;
   }
 }
+
+void sendMorseCode(int outPin, char* message) {
+  char ch;
+  int len = strlen(message);
+  for(int i = 0; i < len; i++) {
+    ch = message[i];
+    flashDashDot(outPin, MorseTable[ch]);
+  }
+}
