@@ -49,6 +49,7 @@ int checkPaired() {
 }
 
 void pairLasers() {
+  turnLaserOn(LASER);
   // Slowly turn the motors from 0 to 90 degrees,
   //  until they find each other.
   while (1) {
@@ -57,6 +58,8 @@ void pairLasers() {
       delay(250);
       // see if other laser is received
       if(checkPaired()) {
+        // Paired!
+        turnLaserOff(LASER);
         return;
       }
     }
@@ -80,9 +83,7 @@ void setup() {
   //slcd.print("DON'T PANIC!");
   //slcd.setCursor(0, 1);
 
-  setupLaser(LASER);
-  pinMode(PHR, INPUT);
-  turnLaserOn(LASER);
+  setupLaserAndReceiver(LASER, PHR);
 
   servo.attach(MOTOR);
   servo.write(0);

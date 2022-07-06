@@ -10,8 +10,9 @@
 
 int shoot_delay = 1000 / TX_SPEED;
 
-void setupLaser(int laserPin){
+void setupLaserAndReceiver(int laserPin, int receiverPin){
   pinMode(laserPin, OUTPUT);
+  pinMode(receiverPin, INPUT);
 }
 
 void blinkLaser(int laserPin) {

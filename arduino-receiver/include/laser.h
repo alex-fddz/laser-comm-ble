@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-void setupLaser(int laserPin);
+void setupLaserAndReceiver(int laserPin, int receiverPin);
 
 void blinkLaser(int laserPin);
 
