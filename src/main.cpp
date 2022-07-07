@@ -6,7 +6,8 @@
 #include <laser.h>
 #include <morse.h>
 
-#define LASER_PIN 12
+#define LASER 12
+#define PHR 13
 
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
@@ -40,9 +41,9 @@ class MyCallbacks : public BLECharacteristicCallbacks
       Serial.println(message);
 
       // doSomething(message);
-      sendMorseCode(LASER_PIN, message);
+      sendMorseCode(LASER, message);
       
-      Serial.print("OK!");
+      Serial.println("[OK!]");
       
     }
   }
@@ -55,7 +56,7 @@ void setup() {
   Serial.println("Starting BLE Setup...");
 
   // Laser setup
-  setupLaser(LASER_PIN);
+  setupLaserAndReceiver(LASER, PHR);
 
   // BLE setup:
   BLEDevice::init("DM_AJ");
@@ -76,5 +77,4 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  
 }

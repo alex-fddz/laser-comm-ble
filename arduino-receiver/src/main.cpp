@@ -36,21 +36,7 @@ int count = 0;
 SerialLCD slcd(11,12);//this is a must, assign soft serial pins
 // (11 and 12 will be lcd's tx and rx respectively)
 
-int checkPaired() {
-  if(isReceiverOn(PHR)) {
-    // stop for 1s and check again
-    delay(1000);
-    if(isReceiverOn(PHR)) {
-      // lasers are paired.
-      return 1;
-    } else {
-      return 0;
-    }
-  } else {
-    return 0;
-  }
-}
-
+// Laser pairing sequence (w/ servo)
 void pairLasers() {
   turnLaserOn(LASER);
   // Slowly turn the motors from 0 to 90 degrees,
@@ -60,7 +46,7 @@ void pairLasers() {
       servo.write(angle);
       delay(250);
       // see if other laser is received
-      if(checkPaired()) {
+      if(checkPaired(PHR)) {
         // Paired!
         turnLaserOff(LASER);
         return;
@@ -71,7 +57,7 @@ void pairLasers() {
       servo.write(angle);
       delay(250);
       // see if other laser is received
-      if(checkPaired()) {
+      if(checkPaired(PHR)) {
         return;
       }
     }
