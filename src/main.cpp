@@ -44,6 +44,7 @@ class MyCallbacks : public BLECharacteristicCallbacks
       sendMorseCode(LASER, message);
       
       Serial.println("[OK!]");
+      sendMorseCode(LASER, "\\");
       
     }
   }

@@ -1,8 +1,11 @@
 /* Morse code comm library */
 
 #include <morse.h>
+#include <SerialLCD.h>
 
 #define PRINT_MORSE_CODE_FLAG false
+#define MESSAGE_LENGTH 16
+SerialLCD slcd(11,12);
 
 int dotLength = 50;
 int dashLength = dotLength*3;
@@ -33,7 +36,7 @@ const char* MorseTable[] = {
   // P Q R S T U V W
   ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--",
   // X Y Z [ \ ] ^ _
-  "-..-", "-.--", "--..", NULL, NULL, NULL, NULL, "..--.-",
+  "-..-", "-.--", "--..", NULL, "..-.-", NULL, NULL, "..--.-",
   // ' a b c d e f g
   NULL, ".-", "-...", "-.-.", "-..", ".", "..-.", "--.",
   // h i j k l m n o
@@ -71,7 +74,7 @@ const char MorseTree[] = {
   '\0','\0','\0','\0','\0','\0','\0'
 };
 
-char Message[32];
+char Message[MESSAGE_LENGTH];
 int MsgPos = 0;
 
 void dash(int outPin) {
@@ -113,13 +116,15 @@ void sendMorseCode(int outPin, char* message) {
 }
 
 void writeMsgToLCD() {
-  slcd.setCursot(0,0);
+  slcd.setCursor(0,0);
+  slcd.print("Message recieved:");
+  slcd.setCursor(0,1);
   slcd.print(Message);
 }
 
 void buildMsg(char inputChar) {
-  if (inputChar == '\\' || MsgPos >= 32) {
-    writeMsgToLCD(Message);
+  if (inputChar == '\0' || MsgPos >= MESSAGE_LENGTH) {
+    writeMsgToLCD();
     MsgPos = 0;
     return;
   }
@@ -155,7 +160,7 @@ void receiveMorseCode(int receiverPin) {
     ctrHigh = 0;
   }
 }
-
-void buildAndPrintMsg() {
-
+void setupLCD() {
+slcd.begin();
+slcd.print("Awaiting Msg...");
 }

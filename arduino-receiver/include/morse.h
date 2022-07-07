@@ -18,5 +18,6 @@ void sendMorseCode(int outPin, char* message);
 void writeMsgToLCD();
 void buildMsg(char inputChar);
 void receiveMorseCode(int receiverPin);
+void setupLCD();
 
 #endif

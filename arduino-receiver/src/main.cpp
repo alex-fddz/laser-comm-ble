@@ -33,7 +33,7 @@ int rcv;
 int count = 0;
 
 // initialize the library
-SerialLCD slcd(11,12);//this is a must, assign soft serial pins
+// SerialLCD slcd(11,12);//this is a must, assign soft serial pins
 // (11 and 12 will be lcd's tx and rx respectively)
 
 // Laser pairing sequence (w/ servo)
@@ -66,6 +66,7 @@ void pairLasers() {
 
 void setup() {
   // set up
+  setupLCD();
   //slcd.begin();
   Serial.begin(115200);
   // Print a message to the LCD.
