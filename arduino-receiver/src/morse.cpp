@@ -2,6 +2,8 @@
 
 #include <morse.h>
 
+#define PRINT_MORSE_CODE_FLAG false
+
 int dotLength = 50;
 int dashLength = dotLength*3;
 
@@ -42,6 +44,14 @@ const char* MorseTable[] = {
   "-..-", "-.--", "--..", NULL, NULL, NULL, NULL, NULL,
 };
 
+/*
+ * Morse Code Binary Tree
+ * Left child at 2n+1
+ * Right child at 2n+2
+ *         <.|->
+ *      .E       -T
+ *    .I  -A   .N  -M
+*/
 const char MorseTree[] = {
   '\0','E', 'T', 'I', 'A', 'N', 'M', 'S',
   'U', 'R', 'W', 'D', 'K', 'G', 'O', 'H',
@@ -60,6 +70,9 @@ const char MorseTree[] = {
   '\0','\0',',', '\0','\0','\0','\0',':',
   '\0','\0','\0','\0','\0','\0','\0'
 };
+
+char Message[32];
+int MsgPos = 0;
 
 void dash(int outPin) {
   digitalWrite(outPin, HIGH);
@@ -99,6 +112,22 @@ void sendMorseCode(int outPin, char* message) {
   }
 }
 
+void writeMsgToLCD() {
+  slcd.setCursot(0,0);
+  slcd.print(Message);
+}
+
+void buildMsg(char inputChar) {
+  if (inputChar == '\\' || MsgPos >= 32) {
+    writeMsgToLCD(Message);
+    MsgPos = 0;
+    return;
+  }
+  Message[MsgPos] = inputChar;
+  MsgPos++;
+  return;
+}
+
 void receiveMorseCode(int receiverPin) {
   val = analogRead(receiverPin);
   if (val <= 10) {
@@ -107,17 +136,26 @@ void receiveMorseCode(int receiverPin) {
   } else {
     ctrLow++;
     if ((ctrHigh >= dotLen) && (ctrHigh < dotLen*2)) {
+      #if PRINT_MORSE_CODE_FLAG
       Serial.print(".");
+      #endif
       codePtr = (2*codePtr) + 1;
     } else if (ctrHigh >= dotLen * 2) {
+      #if PRINT_MORSE_CODE_FLAG
       Serial.print("-");
+      #endif
       codePtr = (2*codePtr) + 2;
     } else {
       if(ctrLow == dotLen*2 && codePtr != 0){
         Serial.print(MorseTree[codePtr]);
+        buildMsg(MorseTree[codePtr]);
         codePtr = 0;
       }
     }
     ctrHigh = 0;
   }
+}
+
+void buildAndPrintMsg() {
+
 }
