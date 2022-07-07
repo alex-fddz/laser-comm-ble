@@ -20,7 +20,7 @@
 
 #include <Servo.h>
 
-#include <morserx.h>
+#include <morse.h>
 
 #define LASER 13
 #define PHR A0
@@ -85,7 +85,7 @@ void setup() {
 
 void loop() {
   
-  receiveMorseCode();
+  receiveMorseCode(PHR);
   
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
