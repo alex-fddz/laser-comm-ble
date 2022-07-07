@@ -20,6 +20,8 @@
 
 #include <Servo.h>
 
+#include <morserx.h>
+
 #define LASER 13
 #define PHR A0
 
@@ -28,6 +30,7 @@
 Servo servo;
 
 int rcv;
+int count = 0;
 
 // initialize the library
 SerialLCD slcd(11,12);//this is a must, assign soft serial pins
@@ -95,6 +98,9 @@ void setup() {
 }
 
 void loop() {
+  
+  receiveMorseCode();
+  
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
   // slcd.setCursor(0, 1);

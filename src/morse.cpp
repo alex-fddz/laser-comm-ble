@@ -62,6 +62,7 @@ void flashDashDot(int outPin, const char * morseCode) {
     }
     i++;
   }
+  delay(dotLength*2);
 }
 
 void sendMorseCode(int outPin, char* message) {
