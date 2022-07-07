@@ -82,6 +82,7 @@ void setup() {
   Serial.println("Pairing...");
   pairLasers();
   Serial.print("OK!");
+  servo.detach();
 }
 
 void loop() {
