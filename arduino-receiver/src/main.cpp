@@ -60,6 +60,9 @@ void pairLasers() {
       delay(angleWait);
       // see if other laser is received
       if(checkPaired(PHR)) {
+        // Paired!
+        delay(2000);
+        turnLaserOff(LASER);
         return;
       }
     }
