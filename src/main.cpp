@@ -77,6 +77,9 @@ void setup() {
     turnLaserOn(LASER);
     while(1) {
       if(checkPaired(PHR)) {
+        while((getAcknowledgeFlag()) == false) {
+          receiveMorseCode(PHR);
+        }
         delay(2000);
         turnLaserOff(LASER);
         // Laser is paired. Resume to loop()

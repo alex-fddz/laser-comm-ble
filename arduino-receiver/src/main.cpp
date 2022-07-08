@@ -48,6 +48,7 @@ void pairLasers() {
       delay(angleWait);
       // see if other laser is received
       if(checkPaired(PHR)) {
+        // Send Syn
         // Paired!
         delay(2000);
         turnLaserOff(LASER);

@@ -15,4 +15,9 @@ void sendMorseCode(int outPin, char* message);
 
 void receiveMorseCode(int receiverPin);
 
+// Acknowledge functions
+void setAcknowledgeFlag(bool setting);
+bool getAcknowledgeFlag();
+void receiveAck(int receiverPin);
+
 #endif

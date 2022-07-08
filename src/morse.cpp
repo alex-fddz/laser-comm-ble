@@ -11,6 +11,7 @@ int ctrLow = 0;
 int codePtr = 0;
 int dotLen = 400;
 
+
 const char* MorseTable[] = {
   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -115,6 +116,42 @@ void receiveMorseCode(int receiverPin) {
     } else {
       if(ctrLow == dotLen*2 && codePtr != 0){
         Serial.print(MorseTree[codePtr]);
+        codePtr = 0;
+      }
+    }
+    ctrHigh = 0;
+  }
+}
+
+bool ACKNOWLEDGE_FLAG = false;
+
+void setAcknowledgeFlag(bool setting) {
+  ACKNOWLEDGE_FLAG = setting;
+}
+
+bool getAcknowledgeFlag() {
+  return ACKNOWLEDGE_FLAG;
+}
+
+void receiveAck(int receiverPin) {
+  val = analogRead(receiverPin);
+  if (val <= 10) {
+    ctrHigh++;
+    ctrLow = 0;
+  } else {
+    ctrLow++;
+    if ((ctrHigh >= dotLen) && (ctrHigh < dotLen*2)) {
+      Serial.print(".");
+      codePtr = (2*codePtr) + 1;
+    } else if (ctrHigh >= dotLen * 2) {
+      Serial.print("-");
+      codePtr = (2*codePtr) + 2;
+    } else {
+      if(ctrLow == dotLen*2 && codePtr != 0){
+        Serial.print(MorseTree[codePtr]);
+        if(MorseTree[codePtr] == 'A') {
+          ACKNOWLEDGE_FLAG = true;
+        }
         codePtr = 0;
       }
     }
