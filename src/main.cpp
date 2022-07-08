@@ -6,8 +6,9 @@
 #include <laser.h>
 #include <morse.h>
 
-#define LASER 12
-#define PHR 13 //photoresistor
+
+#define LASER 12 // Laser port
+#define PHR 13 // Photoresistor port
 
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
@@ -73,9 +74,11 @@ void setup() {
   BLEAdvertising *pAdvertising = pServer->getAdvertising();
   pAdvertising->start();
 
-  //void pairingSequence() {
-    turnLaserOn(LASER);
+// Pairing sequence makes sure that the turret of the reciever is turned in the direction of the transmittor
+  void pairingSequence() {
+    turnLaserOn(LASER); // Laser is on
     while(1) {
+      // keep laser on until phototransistor is hit and then wait 2 seconds to turn off laser
       if(checkPaired(PHR)) {
         delay(2000);
         turnLaserOff(LASER);
@@ -83,11 +86,11 @@ void setup() {
         return;
       }
     }
-  //}
+  }
 
   Serial.println("Setup complete!");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Messages sent by bluetooth will be directly transmitted by the laser.
 }
