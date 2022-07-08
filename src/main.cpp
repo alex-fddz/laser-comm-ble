@@ -7,7 +7,7 @@
 #include <morse.h>
 
 #define LASER 12
-#define PHR 13
+#define PHR 13 //photoresistor
 
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
@@ -72,6 +72,18 @@ void setup() {
   pService->start();
   BLEAdvertising *pAdvertising = pServer->getAdvertising();
   pAdvertising->start();
+
+  //void pairingSequence() {
+    turnLaserOn(LASER);
+    while(1) {
+      if(checkPaired(PHR)) {
+        delay(2000);
+        turnLaserOff(LASER);
+        // Laser is paired. Resume to loop()
+        return;
+      }
+    }
+  //}
 
   Serial.println("Setup complete!");
 }

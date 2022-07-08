@@ -3,7 +3,7 @@
 #include <laser.h>
 
 // CONFIGS (*)
-#define RECEIVER_ON_LVL 20 // 0 - 1023
+#define RECEIVER_ON_LVL 1000 // 0 - 1023
 
 #define TX_SPEED 4 // bits/s (*)
 #define LO 10  // 0-bit (*)

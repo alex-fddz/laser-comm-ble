@@ -38,16 +38,18 @@ int count = 0;
 
 // Laser pairing sequence (w/ servo)
 void pairLasers() {
+  int angleWait = 500;
   turnLaserOn(LASER);
   // Slowly turn the motors from 0 to 90 degrees,
   //  until they find each other.
   while (1) {
     for (int angle = 0; angle < 90; angle++) {
       servo.write(angle);
-      delay(250);
+      delay(angleWait);
       // see if other laser is received
       if(checkPaired(PHR)) {
         // Paired!
+        delay(2000);
         turnLaserOff(LASER);
         return;
       }
@@ -55,7 +57,7 @@ void pairLasers() {
     // then to the other side
     for (int angle = 90; angle > 0; angle--) {
       servo.write(angle);
-      delay(250);
+      delay(angleWait);
       // see if other laser is received
       if(checkPaired(PHR)) {
         return;
@@ -80,6 +82,7 @@ void setup() {
   delay(1000);
   
   Serial.println("Pairing...");
+  //slcd.print("Pairing...");
   pairLasers();
   Serial.print("OK!");
   servo.detach();
