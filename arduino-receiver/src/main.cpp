@@ -1,40 +1,20 @@
 #include <Arduino.h>
-/*
-  SerialLCD Library - Hello World
- 
- Demonstrates the use a 16x2 LCD SerialLCD driver from Seeedstudio.
- 
- This sketch prints "Hello, Seeeduino!" to the LCD
- and shows the time.
- 
- Library originally added 16 Dec. 2010
- by Jimbo.we 
- http://www.seeedstudio.com
- */
 
-// include the library code:
 #include <SerialLCD.h>
-#include <SoftwareSerial.h> //this is a must
-
-#include <laser.h>
-
+#include <SoftwareSerial.h> 
 #include <Servo.h>
 
 #include <morse.h>
-
-#define LASER 13
-#define PHR A0
+#include <laser.h>
 
 #define MOTOR 9
-
-Servo servo;
+#define LASER 13
+#define PHR A0
 
 int rcv;
 int count = 0;
 
-// initialize the library
-// SerialLCD slcd(11,12);//this is a must, assign soft serial pins
-// (11 and 12 will be lcd's tx and rx respectively)
+Servo servo;
 
 // Laser pairing sequence (w/ servo)
 void pairLasers() {
@@ -70,34 +50,21 @@ void pairLasers() {
 }
 
 void setup() {
-  // set up
   setupLCD();
-  //slcd.begin();
   Serial.begin(115200);
-  // Print a message to the LCD.
-  //slcd.print("DON'T PANIC!");
-  //slcd.setCursor(0, 1);
 
   setupLaserAndReceiver(LASER, PHR);
 
   servo.attach(MOTOR);
   servo.write(0);
   delay(1000);
-  
+
   Serial.println("Pairing...");
-  //slcd.print("Pairing...");
   pairLasers();
   Serial.print("OK!");
   servo.detach();
 }
 
 void loop() {
-  
   receiveMorseCode(PHR);
-  
-  // set the cursor to column 0, line 1
-  // (note: line 1 is the second row, since counting begins with 0):
-  // slcd.setCursor(0, 1);
-  // print the number of seconds since reset:
-  // slcd.print(millis()/1000);
 }
