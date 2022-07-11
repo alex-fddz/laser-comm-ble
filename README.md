@@ -30,4 +30,4 @@ Programming is done through Platformio on VS Code. It consists of two projects. 
 
 ## Models
 
-3D printed models can be found in the `3DModels` folder, and `svg` files for laser cutting can be found in the `LaserCut` folder.3D printed models can be found in the `3DModels` folder, and `svg` files for laser cutting can be found in the  `LaserCut` folder.3D printed models can be found in the `3DModels` folder, and `svg` files for laser cutting can be found in the `LaserCut` folder.
+3D printed models can be found in the `3DModels` folder, and `svg` files for laser cutting can be found in the `LaserCut` folder.
